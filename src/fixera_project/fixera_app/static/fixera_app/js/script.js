@@ -5,7 +5,7 @@ function handleBugCreation(event) {
     const data = new FormData(this);
     const csrfToken = form.querySelector('[name="csrfmiddlewaretoken"]').value;
 
-    fetch('/api/bugs/', {
+    fetch('/api/bug/', {
         method: 'POST',
         headers: {
             'X-CSRFToken': csrfToken,
