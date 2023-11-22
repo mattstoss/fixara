@@ -1,0 +1,14 @@
+{% extends "fixera_app/base.html" %}
+
+{% block header %}
+<h1>Register</h1>
+{% endblock %}
+
+{% block main %}
+<form method="post">
+    {% csrf_token %}
+    {{ register_form.as_p }}
+    <button type="submit">Create Account</button>
+</form>
+<p><a href="{% url 'login' %}">Back to login page.</a></p>
+{% endblock %}

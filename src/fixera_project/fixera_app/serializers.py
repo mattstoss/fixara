@@ -1,9 +1,9 @@
 from rest_framework import serializers
 
-from .models import Bug
+from . import models
 
 
-class BugSerializer(serializers.ModelSerializer):
+class Bug(serializers.ModelSerializer):
         class Meta:
-            model = Bug
+            model = models.Bug
             fields = '__all__'

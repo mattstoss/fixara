@@ -1,46 +1,30 @@
+{% extends "fixera_app/base.html" %}
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
+{% block header %}
+<h1>Bugs:</h1>
+{% endblock %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fixera</title>
-    <link rel="stylesheet" href="{% static 'fixera_app/css/styles.css' %}">
-</head>
+{% block main %}
+<ul id="bug-list">
+    {% for bug in bugs %}
+    <li>
+        <h2>{{ bug.title }}</h2>
+        <p>{{ bug.description }}</p>
+        <p>Created at: {{ bug.created_at }}</p>
+    </li>
+    {% empty %}
+    <li>No bugs found</li>
+    {% endfor %}
+</ul>
 
-<body>
-    <header>
-        <h1>Bugs:</h1>
-    </header>
+<form id="bug-form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Create Bug</button>
+</form>
+{% endblock %}
 
-    <main>
-        <ul id="bug-list">
-            {% for bug in bugs %}
-            <li>
-                <h2>{{ bug.title }}</h2>
-                <p>{{ bug.description }}</p>
-                <p>Created at: {{ bug.created_at }}</p>
-            </li>
-            {% empty %}
-            <li>No bugs found</li>
-            {% endfor %}
-        </ul>
-
-        <form id="bug-form">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Create Bug</button>
-        </form>
-
-    </main>
-
-    <footer>
-        <p>&copy; 2023 Fixera</p>
-    </footer>
-
-    <script src="{% static 'fixera_app/js/script.js' %}" , type="module"></script>
-</body>
-
-</html>
+{% block script %}
+<script src="{% static 'fixera_app/js/script.js' %}" type="module"></script>
+{% endblock %}
