@@ -7,7 +7,7 @@
 {% block main %}
 <form method="post">
     {% csrf_token %}
-    {{ login_form.as_p }}
+    {{ form.as_p }}
     <button type="submit">Login</button>
 </form>
 <p>Don't have an account?
