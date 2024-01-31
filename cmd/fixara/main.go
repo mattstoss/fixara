@@ -10,11 +10,8 @@ func runServer() error {
 	taskStore := task.NewStore()
 	taskHandler := task.NewHandler(taskStore)
 
-	mux := http.NewServeMux()
-	mux.HandleFunc("/task/", taskHandler)
-
 	log.Print("starting server...")
-	return http.ListenAndServe("localhost:5050", mux)
+	return http.ListenAndServe("localhost:5050", taskHandler)
 }
 
 func main() {

@@ -9,21 +9,18 @@ import (
 	"strings"
 )
 
-func NewHandler(ts TaskStore) func(http.ResponseWriter, *http.Request) {
-	h := handler{store: ts}
-	return func(w http.ResponseWriter, r *http.Request) {
-		h.routeAndHandleRequest(w, r)
-	}
+func NewHandler(ts TaskStore) http.Handler {
+	return &handler{store: ts}
 }
 
 type handler struct {
 	store TaskStore
 }
 
-func (h *handler) routeAndHandleRequest(w http.ResponseWriter, r *http.Request) {
+func (h *handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	isAllowed := strings.HasPrefix(r.URL.Path, "/task/")
 	if !isAllowed {
-		sendJSONError(w, fmt.Sprintf("Expects /task/, got %s", r.URL.Path), http.StatusInternalServerError)
+		sendJSONError(w, fmt.Sprintf("Expects /task/, got %s", r.URL.Path), http.StatusNotFound)
 		return
 	}
 
